@@ -34,7 +34,7 @@ if not os.path.exists('pretendo.json'):
         "birthday": birthday
     }
 
-    with open('pretendo.json', 'w', encoding='UTF-8') as f:
+    with open('pretendo.json', 'w') as f:
         json.dump(json_data, f, indent=4)
 
     print("Setup complete!")
@@ -47,7 +47,7 @@ if not os.path.exists('lang.json'):
 
     print("Language files not detected, downloading...")
 
-    with open('pretendo.json', 'r', encoding='UTF-8') as f:
+    with open('pretendo.json', 'r') as f:
         pretendo = json.load(f)
 
         lang = pretendo['language']
@@ -56,16 +56,16 @@ if not os.path.exists('lang.json'):
 
     r = requests.get(f'https://raw.githubusercontent.com/PretendoNetwork/juxt-web/ui-redesign/src/translations/{lang}.json')
 
-    with open('lang.json', 'w', encoding='UTF-8') as f:
+    with open('lang.json', 'w') as f:
         f.write(r.text)
 
     print("Language files downloaded!")
     
-with open('pretendo.json', 'r', encoding='UTF-8') as f:
+with open('pretendo.json', 'r') as f:
     pnid = json.load(f)
-with open('downloadUserData.json', 'r', encoding='UTF-8') as f:
+with open('downloadUserData.json', 'r') as f:
     downloadUserData = json.load(f)
-with open('lang.json', 'r', encoding='UTF-8') as f:
+with open('lang.json', 'r') as f:
     lang = json.load(f)
 
 userSettings = downloadUserData['user_settings']
