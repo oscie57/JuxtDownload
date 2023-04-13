@@ -1,0 +1,65 @@
+<html lang="en">
+<head>
+    <title>Juxt - {{ pnid.mii_name }}</title>
+    {% include 'head.html' %}
+</head>
+<body>
+<div id="main">
+    <h2 id="title" class="page-header">{{ lang.global.user_page }}</h2>
+    <div id="toast"></div>
+    <div id="wrapper">
+        <div class="community-top">
+            <img class="banner" src="https://juxt-web-cdn.b-cdn.net/images/banner.png" alt="">
+            <div class="community-info">
+                <img class="user-icon {% if pnid.access_level > 2 %} verified {% endif %}" src="https://pretendo-cdn.b-cdn.net/mii/{{ userSettings.pid }}/normal_face.png">
+                <h2 class="community-title">{{ pnid.mii_name }} @{{ pnid.username }}<span class="verified-badge" style="{% if pnid.access_level < 2 %} display: none; {% endif %}">✓</span></h2>
+            </div>
+            <h4 class="community-description">
+                Please save this page (and its attachments) in order to preserve your Juxtaposition profile.
+                <br><br>
+                {{ userContent.profile_comment }}
+            </h4>
+            <div class="info-boxes-wrapper">
+                <div>
+                    <h4>{{ lang.user_page.country }}</h4>
+                    <h4>{{pnid.country}}</h4>
+                </div>
+                <div>
+                    <h4>{{ lang.user_page.birthday }}</h4>
+                    <h4>{{ pnid.birthdate}}</h4>
+                </div>
+                <div>
+                    <h4>{{ lang.user_page.game_experience }}</h4>
+                    <h4>
+                        {% if userContent.game_skill == 0 %}
+                            {{ lang.setup.experience_text.beginner }}
+                        {% elif userContent.game_skill == 1 %}
+                            {{ lang.setup.experience_text.intermediate }}
+                        {% elif userContent.game_skill == 2 %}
+                            {{ lang.setup.experience_text.expert }}
+                        {% else %}
+                            N/A
+                        {% endif %}
+                    </h4>
+                </div>
+                <div>
+                    <h4>{{ lang.user_page.followers }}</h4>
+                    <h4 id="user-page-followers-tab" id="followers">{{ userSettings.following_users|length }}</h4>
+                </div>
+            </div>
+        </div>
+
+        {% if newPosts|length == 0 %}
+            <p class="no-posts-text"><%= lang.activity_feed.empty %></p>
+        {% else %}
+
+            {% for post in newPosts|reverse %}
+                {% with post=post, mii_image_CDN=mii_image_CDN, lang=lang, reply=false %}
+                    {% include 'post_template.html' %}
+                {% endwith %}
+            {% endfor %}
+        {% endif %}
+    </div>
+</div>
+</body>
+</html>
