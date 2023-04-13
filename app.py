@@ -31,7 +31,7 @@ if not os.path.exists('pretendo.json'):
         "username": username,
         "country": country,
         "language": language,
-        "birthday": birthday
+        "birthdate": birthday
     }
 
     with open('pretendo.json', 'w') as f:
