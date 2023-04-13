@@ -17,7 +17,7 @@ if not os.path.exists('pretendo.json'):
         print("Invalid language! Please try again.")
         sys.exit()
 
-    if access_level not in ['0', '1', '2']:
+    if access_level not in [1, 2, 3]:
         print("Invalid access level! Please try again.")
         sys.exit()
 
