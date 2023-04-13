@@ -1,5 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, send_file
-from debug import request_dump
+from flask import Flask, render_template, send_file
 import json, os, sys
 
 app = Flask(__name__)
