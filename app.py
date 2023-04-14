@@ -10,8 +10,9 @@ if not os.path.exists('pretendo.json'):
     access_level = int(input("What's your access level? (0 = User, 1 = Tester, 2 = Mega, 3 = Dev) "))
     username = input("What's your PNID username? ")
     country = input("What's your country? ")
-    language = input("What's your language? ")
+    language = input("What's your language? (e.g fr) ")
     birthday = input("What's your birthday? (YYYY-MM-DD) ")
+    offline = bool(input("Would you like to save images? (True/False) "))
 
     if language not in ['de', 'en', 'es', 'fr', 'it', 'ja', 'ko', 'nl', 'pt', 'pt_br', 'ru', 'zh']:
         print("Invalid language! Please try again.")
@@ -31,7 +32,8 @@ if not os.path.exists('pretendo.json'):
         "username": username,
         "country": country,
         "language": language,
-        "birthdate": birthday
+        "birthdate": birthday,
+        "offline": offline
     }
 
     with open('pretendo.json', 'w') as f:
@@ -76,11 +78,27 @@ newPosts = downloadUserData['posts']
 def index():
     #request_dump(request)
 
-    return render_template('user_page.html', pnid=pnid, lang=lang, userSettings=userSettings, userContent=userContent, newPosts=newPosts)
+    if pnid['offline']:
+        return render_template('user_page_offline.html', pnid=pnid, lang=lang, userSettings=userSettings, userContent=userContent, newPosts=newPosts)
+    else:
+        return render_template('user_page.html', pnid=pnid, lang=lang, userSettings=userSettings, userContent=userContent, newPosts=newPosts)
 
 @app.route('/web.css')
 def css():
     return send_file('./static/web.css')
+
+@app.route('/images/mii_face/<filename>')
+def asset_mii_face(filename):
+    print(filename)
+
+    return send_file(f'images/mii_face/{filename}')
+@app.route('/images/paintings/<pid>/<id>.png')
+def asset_paintings(pid, id):
+    return send_file(f"images/paintings/{id}.png")
+@app.route('/images/<filename>.png')
+def asset(filename):
+    return send_file(f"images/{filename}.png")
+
 
 if __name__ == '__main__':
     app.run("127.0.0.1", 80, debug=True)

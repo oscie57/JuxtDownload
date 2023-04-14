@@ -9,9 +9,9 @@
     <div id="toast"></div>
     <div id="wrapper">
         <div class="community-top">
-            <img class="banner" src="https://juxt-web-cdn.b-cdn.net/images/banner.png" alt="">
+            <img class="banner" src="/images/banner.png" alt="">
             <div class="community-info">
-                <img class="user-icon {% if pnid.access_level > 2 %} verified {% endif %}" src="https://pretendo-cdn.b-cdn.net/mii/{{ userSettings.pid }}/normal_face.png">
+                <img class="user-icon {% if pnid.access_level > 2 %} verified {% endif %}" src="images/mii_face/normal_face.png">
                 <h2 class="community-title">{{ pnid.mii_name }} @{{ pnid.username }}<span class="verified-badge" style="{% if pnid.access_level < 2 %} display: none; {% endif %}">✓</span></h2>
             </div>
             <h4 class="community-description">
@@ -54,7 +54,7 @@
         {% else %}
             {% for post in newPosts|reverse %}
                 {% with post=post, mii_image_CDN=mii_image_CDN, lang=lang, reply=false %}
-                    {% include 'post_template.html' %}
+                    {% include 'post_template_offline.html' %}
                 {% endwith %} 
             {% endfor %}
         {% endif %}
